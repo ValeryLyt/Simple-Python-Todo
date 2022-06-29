@@ -1,6 +1,9 @@
 import json
 
-class NoSuchListError(Exception): pass
+
+class NoSuchListError(Exception):
+	pass
+
 
 class TodoList:
 	"""
@@ -53,17 +56,17 @@ class TodoList:
 		return self.forward()
 
 	def __getitem__(self, item_id):
-		print item_id
+		print(item_id)
 		for todo in self.list:
 			if todo.id == item_id:
 				return todo
 			else:
-				print item_id, 'not matched for', todo.id, todo
+				print(item_id, 'not matched for', todo.id, todo)
 		raise IndexError('No such item')
 
 	def forward(self):
 		current_item = 0
-		while (current_item < len(self)):
+		while current_item < len(self):
 			item = self.list[current_item]
 			current_item += 1
 			yield item
@@ -96,7 +99,7 @@ class TodoList:
 			self.list = []
 			for item in json_list:
 				self.list.append(TodoItem(item['id'], item['text']))
-				print item
+				print(item)
 
 		except IOError:
 			raise NoSuchListError

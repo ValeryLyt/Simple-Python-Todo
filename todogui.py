@@ -29,7 +29,7 @@ class TodoGUI:
 		for infile in glob.glob( os.path.join(json_folder, '*.json') ):
 			listname = infile.replace(json_folder, '').replace('.json', '')
 			self.lists[listname] = TodoList(infile)
-			print 'Found:', infile.replace(json_folder, '').replace('.json', '')
+			print('Found:', infile.replace(json_folder, '').replace('.json', ''))
 
 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
 		self.window.set_title('Simple Python Todo')
@@ -170,7 +170,7 @@ class ListPanel:
 
 		for todo in todolist:
 			new_row = (todo.id, todo.text)
-			print new_row
+			print(new_row)
 			store.append(new_row)
 
 		return store
@@ -221,9 +221,9 @@ class ListPanel:
 		"""
 		store, titer = selection.get_selected()
 		if titer is not None:
-			print store.get_path(titer)
+			print(store.get_path(titer))
 			for item in store:
-				print item[0], item[1]
+				print(item[0], item[1])
 			self.selection_id = store.get_value(titer, 0)
 
 TodoGUI().main()

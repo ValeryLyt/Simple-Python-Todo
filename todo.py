@@ -21,7 +21,7 @@ class Todo:
 			func = getattr(self, sys.argv[1])
 		# Command not found
 		except AttributeError:
-			print "The command", sys.argv[1], "doesn't exist"
+			print("The command", sys.argv[1], "doesn't exist")
 		# No action defined, show help
 		except IndexError:
 			self.help()
@@ -30,10 +30,10 @@ class Todo:
 				try:
 					func()
 				except IndexError:
-					print "Missing argument for command '" + sys.argv[1] + "' check help"
+					print("Missing argument for command '" + sys.argv[1] + "' check help")
 				except NoSuchListError:
-					print "That list does not exist. Please try another list," \
-						+ " or create the list using create <list>"
+					print("That list does not exist. Please try another list," \
+						+ " or create the list using create <list>")
 
 	def install(self):
 		"""
@@ -52,7 +52,7 @@ class Todo:
 
 		self.create("todo", False)
 
-		print "Simple Python Todo Installed"
+		print("Simple Python Todo Installed")
 
 	def create(self, name=None, print_output=True):
 		"""
@@ -67,14 +67,13 @@ class Todo:
 			json_file = open(self.getListFilename(list_name), "r")
 			json.loads(json_file.read())
 			if print_output:
-				print list_name, "already exists."
+				print(list_name, "already exists.")
 		except IOError as e:
 			if e.errno == 2: # No file, create file.
 				json_file = open(self.getListFilename(list_name), "w")
 				json_file.write("[]")
 				if print_output:
-					print "Created:", list_name
-
+					print("Created:", list_name)
 
 	def delete(self):
 		"""
@@ -84,7 +83,7 @@ class Todo:
 		list_name = sys.argv[2]
 		os.remove(self.getListFilename(list_name))
 
-		print list_name, "removed"
+		print(list_name, "removed")
 
 	def add(self):
 		"""
@@ -105,8 +104,8 @@ class Todo:
 		todo_list.add(text)
 		todo_list.save()
 
-		print "Added to:", list_name
-		print "Added:", text
+		print("Added to:", list_name)
+		print("Added:", text)
 
 	def done(self):
 		"""
@@ -128,8 +127,8 @@ class Todo:
 		removed_text = todo_list.remove(item_id)
 		todo_list.save()
 
-		print "Removed from:", list_name
-		print "Removed:", removed_text
+		print("Removed from:", list_name)
+		print("Removed:", removed_text)
 
 	def list(self, list_name="todo"):
 		"""
@@ -139,7 +138,7 @@ class Todo:
 		if len(sys.argv) > 2:
 			list_name = sys.argv[2]
 
-		print TodoList(self.getListFilename(list_name))
+		print(TodoList(self.getListFilename(list_name)))
 
 	def getListFilename(self, list_name):
 		"""
@@ -166,26 +165,26 @@ class Todo:
 		list_from.save()
 		list_to.save()
 
-		print "Moved to: %s" % lname_to
+		print("Moved to: %s" % lname_to)
 
 	def help(self):
 		"""
 		Prints out help information
 		"""
-		print
-		print "Usage (simple):"
-		print "\t add <message> \t- Adds a message to the todo list"
-		print "\t list \t\t- Lists all current todo items"
-		print "\t done <ID> \t\t- Removes a finished todo item with the specified ID"
-		print "\t install \t- Sets up the data files needed to run the script"
-		print
-		print "Usage (multiple lists):"
-		print "\t addto <list> <message> \t - Adds a message to a certain list"
-		print "\t list <list> \t\t\t - Prints out a certain list."
-		print "\t donein <list> <ID> \t\t - Marks a message done in a certain list"
-		print "\t create <list> \t\t\t - Creates a list with the name <list>"
-		print "\t delete <list> \t\t\t - Deletes the list with the name <list>"
-		print "\t move <ID> <from> <to> \t\t - Move list item another list"
-		print
+		print()
+		print("Usage (simple):")
+		print("\t add <message> \t- Adds a message to the todo list")
+		print("\t list \t\t- Lists all current todo items")
+		print("\t done <ID> \t\t- Removes a finished todo item with the specified ID")
+		print("\t install \t- Sets up the data files needed to run the script")
+		print()
+		print("Usage (multiple lists):")
+		print("\t addto <list> <message> \t - Adds a message to a certain list")
+		print("\t list <list> \t\t\t - Prints out a certain list.")
+		print("\t donein <list> <ID> \t\t - Marks a message done in a certain list")
+		print("\t create <list> \t\t\t - Creates a list with the name <list>")
+		print("\t delete <list> \t\t\t - Deletes the list with the name <list>")
+		print("\t move <ID> <from> <to> \t\t - Move list item another list")
+		print()
 
 Todo().run()
